@@ -15,7 +15,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name="Order")
+@Table
 public class Order {
     @Id
     private String email;

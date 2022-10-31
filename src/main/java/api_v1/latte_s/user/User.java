@@ -2,12 +2,8 @@ package api_v1.latte_s.user;
 
 import api_v1.latte_s.order.Order;
 import lombok.*;
-import org.springframework.data.annotation.Id;
 
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -18,14 +14,16 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table(name="User")
+@Table
 public class User {
     @Id
+    @Column(nullable = false)
     private String email;
     private String password;
     private String name;
     private String last_name;
-    @OneToMany(fetch= FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Order")
+    @ToString.Exclude
     private List<Order> orders;
     private Boolean deleted;
     private LocalDateTime created;
