@@ -2,6 +2,7 @@ package api_v1.latte_s.user;
 
 import api_v1.latte_s.order.Order;
 import lombok.*;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
@@ -14,15 +15,17 @@ import java.util.List;
 @AllArgsConstructor
 @RequiredArgsConstructor
 @Entity
-@Table
 public class User {
     @Id
-    @Column(nullable = false)
+    @GeneratedValue
+    private Long id;
+    @NaturalId
+    @Column(nullable = false, unique = true)
     private String email;
     private String password;
     private String name;
     private String last_name;
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "Order")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @ToString.Exclude
     private List<Order> orders;
     private Boolean deleted;
